@@ -2,29 +2,33 @@ import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import * as otpAuth from './otp_auth.js';
 
 dotenv.config();
 
 export async function signup(req, res) {
     const { email, password, name, isOrganizer, college } = req.body;
-
+    //checking if the email address has the required format or not 
+    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
+        return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
+    }
     try {
-        // Check if the user already exists
+        //Checking if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Salt
+        //Salt
         const salt = await bcrypt.genSalt();
 
-        // Hash the password
+        //Hashing the password
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create the user in the database
+        //Creating the user in the database
         const newUser = await User.create({ email, password: hashedPassword, name, isOrganizer, college });
 
-        // Generate a JWT token
+        //Generating a JWT token
         const token = jwt.sign({ email: newUser.email, id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '30d' });
 
         res.status(201).json({ newUser, token });
@@ -37,20 +41,30 @@ export async function signup(req, res) {
 export async function signin(req, res) {
     const { email, password } = req.body;
 
+    //checking if the email address has the required format 
+    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
+        return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
+    }
+
     try {
-        // Check if the user exists
+        //Checking if the user exists
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(404).json({ message: "User doesn't exist" });
         }
+        //Checking if the user's email address matches the required format or not
+        if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(existingUser.email)) {
+            return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
+        }
 
-        // Check if the password is correct
+
+        //Checking if the password is correct
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate a JWT token
+        //Generating a JWT token
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '30d' });
 
         console.log("Generated Token\n", token);
@@ -93,3 +107,41 @@ export async function logout(req, res, next) {
     });
 };
 
+export async function generateAndSendOTP(req, res) {
+    try {
+      const userId = req.user.id;
+      const user = await User.findById(userId);
+
+       // Checking if the user's email matches the required format
+       if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
+        return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
+    }
+      const otpRecord = await otpAuth.generateOTP(userId);
+    
+      
+      //Sending the OTP to the user through the desired communication channel.
+  
+      res.status(200).json({ message: 'OTP generated and sent' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error generating and sending OTP' });
+    }
+  }
+  
+  export async function authenticateUserWithOTP(req, res) {
+    try {
+      const userId = req.user.id;
+      const enteredOTP = req.body.enteredOTP;
+  
+      const isAuthSuccessful = await otpAuth.authenticateOTP(userId, enteredOTP);
+  
+      if (isAuthSuccessful) {
+        res.status(200).json({ message: 'OTP authentication successful' });
+      } else {
+        res.status(400).json({ message: 'Invalid OTP' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error authenticating with OTP' });
+    }
+  }
