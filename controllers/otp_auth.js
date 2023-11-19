@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 
-mongoose.connect('mongodb://localhost/KUventsJServer', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb://localhost/KUventsJServer', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const otpSchema = new mongoose.Schema({
   user_id: {
