@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
-import Stripe from 'stripe';
+//import Stripe from 'stripe';
 import Event from '../models/event.js';
 import College from '../models/college.js';
 import { uploadImage } from '../config/cloudinary.js';
 
 dotenv.config();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+//const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Get all events
 export async function getEvents(req, res) {
@@ -107,6 +107,7 @@ export async function deleteEvent(req, res) {
 }
 
 // Create a new payment
+/*
 export async function createPayment(req, res) {
     try {
         const event = await Event.findById(req.body.eventId);
@@ -141,3 +142,4 @@ export async function createPayment(req, res) {
         res.status(500).json({ error: 'Server error' });
     }
 }
+*/

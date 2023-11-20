@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import colleges_data from "./colleges.js";
+import colleges_data from "./datasets/colleges.js";
 
 import College from "./models/college.js";
 import Event from "./models/event.js";
@@ -10,8 +10,14 @@ import Category from "./models/category.js";
 
 import dotenv from "dotenv";
 dotenv.config();
-
+/*
 mongoose.connect(process.env.LOCAL_MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+*/
+const LOCAL_MONGODB_URI="mongodb://127.0.0.1:27017/KUventsJServer"
+mongoose.connect(LOCAL_MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
