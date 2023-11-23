@@ -106,7 +106,6 @@ export async function deleteEvent(req, res) {
     }
 }
 
-// Create a new payment
 /*
 export async function createPayment(req, res) {
     try {

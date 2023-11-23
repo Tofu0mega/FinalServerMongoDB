@@ -13,6 +13,6 @@ router.put('/:eventId', event.updateEvent);
 router.delete('/:eventId', event.deleteEvent);
 
 // Routes for payments
-router.post('/:eventId/payments', event.createPayment);
+//router.post('/:eventId/payments', event.createPayment);
 
 export default router;
