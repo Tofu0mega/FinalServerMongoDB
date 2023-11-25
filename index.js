@@ -1,7 +1,7 @@
 // Import dependencies
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import morgan from 'morgan';
@@ -31,11 +31,15 @@ import task from './routes/task.js';
 dotenv.config();
 
 // Configure cloudinary
+
+/*Replace this with the given info module present in .env file as snippet IMP DO NOT PUSH WHILE THE SNIPPET IS IN CODE*/ 
+/*
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+*/
 
 // Connect to the database
 connectDB();
