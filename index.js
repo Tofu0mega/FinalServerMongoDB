@@ -34,6 +34,7 @@ dotenv.config();
 
 /*Replace this with the given info module present in .env file as snippet IMP DO NOT PUSH WHILE THE SNIPPET IS IN CODE*/ 
 /*
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,

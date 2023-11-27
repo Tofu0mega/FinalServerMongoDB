@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import colleges_data from "./datasets/colleges.js";
+import colleges_data from "./datasets/Kucollegedataset.js";
 
 import College from "./models/college.js";
 import Event from "./models/event.js";
