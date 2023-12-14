@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken';
 
 export function verifyToken(req, res, next) {
-    const cookies = req.headers.cookie;
-    const token = cookies.split("=")[1];
+    const cookies = req.headers.authorization;
+
+    const token = cookies.split(" ")[1];
+
     if (!token) {
         res.status(404).json({ message: "No token found" });
     }
@@ -10,8 +12,8 @@ export function verifyToken(req, res, next) {
         if (err) {
             return res.status(400).json({ message: "Invalid Token" });
         }
-        console.log(user.id);
-        req.id = user.id;
+        
+        req.user = user;
     });
     next();
 };

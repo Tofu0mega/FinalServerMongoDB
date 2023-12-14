@@ -3,13 +3,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import * as otpAuth from './otp_auth.js';
+import sendmail from './sendmail.js';
+import e from 'express';
 
 dotenv.config();
 
 export async function signup(req, res) {
     const { email, password, name, isOrganizer, college } = req.body;
     //checking if the email address has the required format or not 
-    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
+    if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(email)) {
         return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
     }
     try {
@@ -108,20 +110,27 @@ export async function logout(req, res, next) {
 };
 
 export async function generateAndSendOTP(req, res) {
+   
     try {
       const userId = req.user.id;
       const user = await User.findById(userId);
-
+        if(user)
+        {
+            if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(user.email)) {
+                return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
+            }
+        }
        // Checking if the user's email matches the required format
-       if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
-        return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
-    }
+      
       const otpRecord = await otpAuth.generateOTP(userId);
-    
+        const email=req.user.email
+        sendmail(email,otpRecord)
       
       //Sending the OTP to the user through the desired communication channel.
   
-      res.status(200).json({ message: 'OTP generated and sent' });
+      res.status(200).json({
+        data:otpRecord,
+         message: 'OTP generated and sent' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error generating and sending OTP' });

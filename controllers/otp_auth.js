@@ -1,48 +1,35 @@
-import mongoose from 'mongoose';
+
 import crypto from 'crypto';
-
+import { OTP } from '../models/otp.js';
+import User from '../models/user.js';
 //mongoose.connect('mongodb://localhost/KUventsJServer', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const otpSchema = new mongoose.Schema({
-  user_id: {
-    type: Number,
-    required: true,
-  },
-  otp: {
-    type: String,
-    required: true,
-  },
-  is_synced: {
-    type: Boolean,
-    default: false,
-  },
-  salt: {
-    type: String,
-    required: true,
-  },
-});
-
-const OTP = mongoose.model('OTP', otpSchema);
 
 export async function generateOTP(userId) {
   try {
+   
     // Assuming you have a User model defined for MongoDB
-    const user = await User.findOne({ _id: userId });
-
+    
+    
     // Checking if the user's email matches the required format
-    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
-      throw new Error('Invalid email format. Use ku.edu.np email address.');
-    }
+    // if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
+    //   throw new Error('Invalid email format. Use ku.edu.np email address.');
+    // }
 
     const timestamp = Date.now();
+ 
     const random = Math.floor(Math.random() * 10000);
-    const salt = crypto.randomBytes(16).toString('hex');
+    const salt = crypto.randomBytes(8).toString('hex');
     const otp = timestamp + random + salt;
 
     const hashedOTP = customHashFunction(otp);
 
-    const otpRecord = await OTP.create({ user_id: userId, otp: hashedOTP, salt });
-    return otpRecord;
+
+    const otpRecord = await OTP.create({
+    'userId':userId,
+    "otp":hashedOTP
+    });
+    
+    return random;
   } catch (error) {
     throw new Error('Error generating OTP');
   }
