@@ -31,7 +31,14 @@ import task from './routes/task.js';
 dotenv.config();
 
 // Configure cloudinary
+/*
 
+
+
+            PASTE HERE
+
+
+*/
 /*Replace this with the given info module present in .env file as snippet IMP DO NOT PUSH WHILE THE SNIPPET IS IN CODE*/ 
 /*
 

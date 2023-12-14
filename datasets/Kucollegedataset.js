@@ -14,7 +14,7 @@ const colleges_data = [
         name: 'Kathmandu University School of Education (KUSoEd)',
         location: 'Hattiban, Lalitpur,Kathmandu',
         link: 'https://soed.ku.edu.np',
-        description: "The Kathmandu University School of Education (KUSOED) is one of the seven Schools of Kathmandu University with a mission to transform education and society through educational excellence.\nKUSOED is composed of four departments and three functional centers, each dedicated to fostering academic growth and innovation. The school offers a wide range of programs, such as B Tech Ed in Information Technology, Post-Graduate Diploma, Master, MPhil, and PhD, catering to the diverse needs of its students. ",
+        description: "The Kathmandu University School of Education (KUSOED) is one of the seven Schools of Kathmandu University with a mission to transform education and society through educational excellence.KUSOED is composed of four departments and three functional centers, each dedicated to fostering academic growth and innovation. The school offers a wide range of programs, such as B Tech Ed in Information Technology, Post-Graduate Diploma, Master, MPhil, and PhD, catering to the diverse needs of its students. ",
         logoUrl: 'https://res.cloudinary.com/dtauaal8p/image/upload/v1700827040/KUvents/logo/KUlogo.jpg',
         imgUrl: 'https://res.cloudinary.com/dtauaal8p/image/upload/v1700827040/KUvents/images/kusoed',
         fests: [
@@ -69,7 +69,7 @@ const colleges_data = [
         name: 'Kathmandu University School of Law (KUSoL)',
         location: 'Araniko Highway, Dhulikhel,Kavre',
         link: 'https://sol.ku.edu.np',
-        description: "Kathmandu University School of Law (KUSOL) is the seventh School in the Kathmandu University System. It is based in Dhulikhel municipality of Kavre-Palanchok District of the Bagmati Province of Nepal. It was established in December 2013 following the decision of the Senate in July the same year and some preparatory works accomplished by the Offices of the Vice Chancellor and Registrar.\nThe University has trained confident, creative, and socially responsible professionals ever since it was established in 1991. The School of Law builds on this physical and knowledge infrastructure.",
+        description: "Kathmandu University School of Law (KUSOL) is the seventh School in the Kathmandu University System. It is based in Dhulikhel municipality of Kavre-Palanchok District of the Bagmati Province of Nepal. It was established in December 2013 following the decision of the Senate in July the same year and some preparatory works accomplished by the Offices of the Vice Chancellor and Registrar.The University has trained confident, creative, and socially responsible professionals ever since it was established in 1991. The School of Law builds on this physical and knowledge infrastructure.",
         logoUrl: 'https://res.cloudinary.com/dtauaal8p/image/upload/v1700827040/KUvents/logo/KUlogo.jpg',
         imgUrl: 'https://res.cloudinary.com/dtauaal8p/image/upload/v1700827040/KUvents/images/kusol',
         fests: [
