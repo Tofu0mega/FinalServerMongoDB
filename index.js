@@ -26,19 +26,17 @@ import category from './routes/category.js';
 import auth from './routes/auth.js';
 import subscriber from './routes/subscriber.js';
 import task from './routes/task.js';
+import clubs from "./routes/clubs.js"
 
 // Load environment variables
 dotenv.config();
 
 // Configure cloudinary
-/*
-
-
-
-            PASTE HERE
-
-
-*/
+cloudinary.config({
+    cloud_name:"dtauaal8p",
+    api_key:"117669798764489",
+    api_secret: "dPUyjkKlrR0vZejDTvCfxHTRmNY",
+});
 /*Replace this with the given info module present in .env file as snippet IMP DO NOT PUSH WHILE THE SNIPPET IS IN CODE*/ 
 /*
 
@@ -91,6 +89,7 @@ app.use('/users', task);
 
 app.use('/colleges', college);
 app.use('/events', event);
+app.use('/clubs',clubs)
 
 app.use('/organizers', organizer);
 app.use('/participants', participant);

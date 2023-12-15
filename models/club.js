@@ -9,6 +9,11 @@ const clubSchema = new mongoose.Schema({
     Email: String,
     logoUrl: String,
     imgUrl: String,
+    HODemail:String,
+    associateduser:   
+        {type:mongoose.Schema.Types.ObjectId,
+        
+        }
     
 });
 

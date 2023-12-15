@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import colleges_data from "./datasets/Kucollegedataset.js";
+import club_data from "./datasets/KUClubDataRefines.js"
 
 import College from "./models/college.js";
 import Event from "./models/event.js";
+import Clubs from "./models/club.js";
 import Organizer from "./models/organizer.js";
 import Participant from "./models/participant.js";
 import Resource from "./models/resource.js";
@@ -26,8 +28,8 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", async () => {
     console.log("Database connected");
-
-    const colleges = await College.insertMany(colleges_data);
+    const clubs=await Clubs.insertMany(club_data);
+    //const colleges = await College.insertMany(colleges_data);
 
     console.log("Data seeded");
     mongoose.connection.close();
