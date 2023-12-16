@@ -11,9 +11,9 @@ dotenv.config();
 export async function signup(req, res) {
     const { email, password, name, isOrganizer, college } = req.body;
     //checking if the email address has the required format or not 
-    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
+    /*if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(email)) {
         return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
-    }
+    }*/
     try {
         //Checking if the user already exists
         const existingUser = await User.findOne({ email });

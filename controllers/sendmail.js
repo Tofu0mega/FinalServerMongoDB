@@ -13,9 +13,9 @@ try{
     let info= await  transporter.sendMail({
         from: '"KUvents" <kuventsnoreply@gmail.com>', //sender's address
         to: email, //list of receivers can be included(separated by commas)
-        subject: "Kuvents sendmail testing", //email subject 
+        subject: "OTP Generated", //email subject 
         text: "Did it work?", 
-        html:otp.toString(),
+        html: '<b>Dear user,</b><br>The OTP for your account is: ' + otp.toString(),
     });
     console.log("Message sent: %s", info.messageId);
 
