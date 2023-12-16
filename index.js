@@ -15,18 +15,8 @@ import connectDB from './config/database.js';
 import errorHandler from './middleware/errorHandler.js';
 import notFoundHandler from './middleware/notFoundHandler.js';
 
-// Import routes
-import college from './routes/college.js';
-import event from './routes/event.js';
-import organizer from './routes/organizer.js';
-import participant from './routes/participant.js';
-import resource from './routes/resource.js';
-import user from './routes/user.js';
-import category from './routes/category.js';
-import auth from './routes/auth.js';
-import subscriber from './routes/subscriber.js';
-import task from './routes/task.js';
-import clubs from "./routes/clubs.js"
+import router from "./routes.js"
+import { verifyToken } from './middleware/tokens.js';
 
 // Load environment variables
 dotenv.config();
@@ -83,24 +73,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Add routes
-app.use('/users', user);
-app.use('/users', task);
-
-app.use('/colleges', college);
-app.use('/events', event);
-app.use('/clubs',clubs)
-
-app.use('/organizers', organizer);
-app.use('/participants', participant);
-
-app.use('/resources', resource);
-app.use('/categories', category);
-
-app.use('/auth', auth);
-
-// Add subscription routes
-app.use('/subscriber', subscriber)
+app.use(router,verifyToken)
 
 // Default routes
 app.get('/', (req, res) => {
