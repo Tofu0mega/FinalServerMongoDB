@@ -37,7 +37,7 @@ export async function getEventById(req, res) {
 
 // Create a new event
 export async function createEvent(req, res) {
-
+    
     try {
         // Upload the banner image to cloudinary and get the URL
         const banner_link = await uploadImage(req.body.banner);
