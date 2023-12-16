@@ -11,7 +11,7 @@ dotenv.config();
 export async function signup(req, res) {
     const { email, password, name, isOrganizer, college } = req.body;
     //checking if the email address has the required format or not 
-    if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(email)) {
+    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
         return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
     }
     try {
@@ -116,7 +116,7 @@ export async function generateAndSendOTP(req, res) {
       const user = await User.findById(userId);
         if(user)
         {
-            if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(user.email)) {
+            if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
                 return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
             }
         }

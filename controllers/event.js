@@ -12,6 +12,7 @@ dotenv.config();
 // Get all events
 export async function getEvents(req, res) {
     try {
+        
         const events = await Event.find();
         res.status(200).json(events);
     } catch (err) {

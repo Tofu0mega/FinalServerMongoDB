@@ -64,8 +64,7 @@ const filteredeventSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Upcoming','Ongoing','finished'],
-        default: 'Upcoming'
+       
     },
     colleges: [{
         type: mongoose.Schema.Types.ObjectId,
