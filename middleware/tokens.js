@@ -2,26 +2,32 @@ import jwt from 'jsonwebtoken';
 
 export function verifyToken(req, res, next) {
 
+  console.log("hi")
   try {
     
     if (
       req.url?.includes("auth") ||
-      req.url?.includes("user") ||
-      req.url?.includes("otp")
+      req.url?.includes("user") 
+      
     ) {
         console.log("IfBhitrako")
       return next();
     }
     const authHeader = req?.headers?.authorization;
     const token = authHeader?.split(" ")[1];
-
+console.log(token)
     if (token == null) {
         return res.status(400).json({ message: "Couldn't find token" });
     }
-    
-    const user = jwt.verify(String(token), String(process.env.JWT_TOKEN));
-    console.log(user)
-    req.user = user;
+    console.log("working?")
+    jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
+      if (err) {
+          return res.status(400).json({ message: "Invalid Token" });
+      }
+      console.log(user.id);
+      console.log(user)
+      req.user = user;
+  });
     next();
   } catch (err) {
     return res.status(500).json({ message: "Internal Server Error" });}

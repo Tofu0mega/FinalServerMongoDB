@@ -46,7 +46,7 @@ export async function signin(req, res) {
  
 
     //checking if the email address has the required format 
-    if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {
+    if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(email)) {
         return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
     }
 
@@ -57,7 +57,7 @@ export async function signin(req, res) {
             return res.status(404).json({ message: "User doesn't exist" });
         }
         //Checking if the user's email address matches the required format or not
-        if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(existingUser.email)) {
+        if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(existingUser.email)) {
             return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
         }
 
@@ -118,7 +118,7 @@ export async function generateAndSendOTP(req, res) {
       const user = await User.findById(userId);
         if(user)
         {
-            if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(user.email)) {
+            if (!/^[A-Za-z0-9._%+-]+@student\.ku\.edu\.np$/.test(user.email)) {
                 return res.status(400).json({ message: 'Invalid email format. Use ku.edu.np email address.' });
             }
         }
