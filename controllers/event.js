@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 //import Stripe from 'stripe';
 import Event from '../models/event.js';
+import FilteredEvent from '../models/filteredevents.js';
 import College from '../models/college.js';
 import { uploadImage } from '../config/cloudinary.js';
 

@@ -64,8 +64,8 @@ const eventSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Upcoming', 'Ongoing', 'Finished'],
-        default: 'Upcoming'
+        enum: ['Pending','Approved'],
+        default: 'Pending'
     },
     colleges: [{
         type: mongoose.Schema.Types.ObjectId,
