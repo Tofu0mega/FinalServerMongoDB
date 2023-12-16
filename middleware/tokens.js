@@ -1,21 +1,31 @@
 import jwt from 'jsonwebtoken';
 
 export function verifyToken(req, res, next) {
-    const cookies = req.headers.authorization;
 
-    const token = cookies.split(" ")[1];
-
-    if (!token) {
-        res.status(404).json({ message: "No token found" });
+  try {
+    
+    if (
+      req.url?.includes("auth") ||
+      req.url?.includes("user") ||
+      req.url?.includes("otp")
+    ) {
+        console.log("IfBhitrako")
+      return next();
     }
-    jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
-        if (err) {
-            return res.status(400).json({ message: "Invalid Token" });
-        }
-        
-        req.user = user;
-    });
+    const authHeader = req?.headers?.authorization;
+    const token = authHeader?.split(" ")[1];
+
+    if (token == null) {
+        return res.status(400).json({ message: "Couldn't find token" });
+    }
+    
+    const user = jwt.verify(String(token), String(process.env.JWT_TOKEN));
+    console.log(user)
+    req.user = user;
     next();
+  } catch (err) {
+    return res.status(500).json({ message: "Internal Server Error" });}
+
 };
 
 export function refreshToken(req, res, next) {

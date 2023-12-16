@@ -42,6 +42,8 @@ export async function signup(req, res) {
 
 export async function signin(req, res) {
     const { email, password } = req.body;
+    
+ 
 
     //checking if the email address has the required format 
     if (!/^[A-Za-z0-9._%+-]+@ku\.edu\.np$/.test(email)) {

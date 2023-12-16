@@ -4,7 +4,7 @@ import Event from '../models/event.js';
 import FilteredEvent from '../models/filteredevents.js';
 import College from '../models/college.js';
 import { uploadImage } from '../config/cloudinary.js';
-
+import sendmailverify from '../AdminScripts/sendmailverify.js'
 dotenv.config();
 
 //const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -61,8 +61,11 @@ export async function createEvent(req, res) {
         await College.findByIdAndUpdate(req.body.college, {
             $push: { events: event._id }
         });
+        const email="pokhrelyural@gmail.com"
+        sendmailverify(email,req)
 
         res.status(201).json(event);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
