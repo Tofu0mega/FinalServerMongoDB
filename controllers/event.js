@@ -5,6 +5,8 @@ import FilteredEvent from '../models/filteredevents.js';
 import College from '../models/college.js';
 import { uploadImage } from '../config/cloudinary.js';
 import sendmailverify from '../AdminScripts/sendmailverify.js'
+import Clubs from '../models/club.js';
+import {FilterEvent} from "../AdminScripts/eventfilter.js"
 dotenv.config();
 
 //const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -12,8 +14,8 @@ dotenv.config();
 // Get all events
 export async function getEvents(req, res) {
     try {
-        
-        const events = await Event.find();
+        FilterEvent();
+        const events = await FilteredEvent.find();
         res.status(200).json(events);
     } catch (err) {
         console.error(err);
@@ -37,11 +39,11 @@ export async function getEventById(req, res) {
 
 // Create a new event
 export async function createEvent(req, res) {
-    
+ 
     try {
         // Upload the banner image to cloudinary and get the URL
         const banner_link = await uploadImage(req.body.banner);
-
+        
         const event = new Event({
             name: req.body.name,
             start_date: req.body.date,
@@ -54,6 +56,8 @@ export async function createEvent(req, res) {
             social_links: req.body.socialLinks,
             category: req.body.category,
             tags: req.body.tags,
+            organizers:req.user.id
+
         });
         await event.save();
 
@@ -61,14 +65,17 @@ export async function createEvent(req, res) {
         await College.findByIdAndUpdate(req.body.college, {
             $push: { events: event._id }
         });
-        const email="pokhrelyural@gmail.com"
-        sendmailverify(email,req)
+        const emailquery=await Clubs.findOne({associateduser:req.user.id}).exec()
+        const email=emailquery.HODemail
+        const clubname=emailquery.name
+        sendmailverify(email,clubname,banner_link,req)
+
 
         res.status(201).json(event);
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Server error' });
+        //res.status(500).json({ error: 'Server error' });
     }
 }
 

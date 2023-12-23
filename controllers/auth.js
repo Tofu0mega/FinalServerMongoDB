@@ -71,12 +71,15 @@ export async function signin(req, res) {
         //Generating a JWT token
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '30d' });
 
-        console.log("Generated Token\n", token);
 
-        if (req.cookies[`${existingUser._id}`]) {
-            req.cookies[`${existingUser._id}`] = "";
+        if (req.cookies) {
+            for (const cookieName in req.cookies) {
+                res.clearCookie(cookieName);
+                // Optionally, you can also set the expired date in the past
+                // res.cookie(cookieName, '', { expires: new Date(0) });
+              }
         }
-
+       
         res.cookie(String(existingUser._id), token, {
             path: "/",
             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
@@ -89,7 +92,7 @@ export async function signin(req, res) {
             .status(200)
             .json({ message: "Successfully Logged In", user: existingUser, token });
     } catch (error) {
-        console.error(error);
+       
         res.status(500).json({ message: 'Server error' });
     }
 }

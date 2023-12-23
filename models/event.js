@@ -82,7 +82,7 @@ const eventSchema = new mongoose.Schema({
     }],
     organizers: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Organizer'
+       
     }],
 });
 

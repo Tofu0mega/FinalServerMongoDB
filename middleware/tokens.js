@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 export function verifyToken(req, res, next) {
 
-  console.log("hi")
+  
   try {
     
     if (
@@ -10,23 +10,26 @@ export function verifyToken(req, res, next) {
       req.url?.includes("user") 
       
     ) {
-        console.log("IfBhitrako")
+      
       return next();
     }
-    const authHeader = req?.headers?.authorization;
-    const token = authHeader?.split(" ")[1];
-console.log(token)
+    const cookies = req.headers.cookie;
+ 
+    const token = cookies.split("=")[1];
+    
+    
+    
     if (token == null) {
         return res.status(400).json({ message: "Couldn't find token" });
     }
-    console.log("working?")
+  
     jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
       if (err) {
+        
           return res.status(400).json({ message: "Invalid Token" });
       }
-      console.log(user.id);
-      console.log(user)
-      req.user = user;
+    
+     req.user=user
   });
     next();
   } catch (err) {

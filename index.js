@@ -73,7 +73,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(router,verifyToken)
+app.use("",verifyToken,router)
 
 // Default routes
 app.get('/', (req, res) => {
