@@ -15,6 +15,7 @@ export async function getUsers(req, res) {
 
 export async function createUser(req, res) {
     try {
+        
         const { email, password, name, isOrganizer, collegeId } = req.body;
         const user = new User({
             email,
@@ -32,8 +33,9 @@ export async function createUser(req, res) {
 }
 
 export async function getUser(req, res) {
+   
     const userId = req.user.id;
-    console.log(1,userId)
+    
     let user;
     try {
         user = await User.findById(userId, "-password");
@@ -43,6 +45,7 @@ export async function getUser(req, res) {
     if (!user) {
         return res.status(404).json({ messsage: "User Not Found" });
     }
+    console.log(user)
     return res.status(200).json({ message: "User Found", user });
 }
 

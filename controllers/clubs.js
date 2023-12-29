@@ -4,7 +4,7 @@ import Clubs from '../models/club.js';
 // Get all clubs
 export async function getclubs(req, res) {
     try {
-        console.log(req.user)
+       
         const clubs = await Clubs.find();
         res.status(200).json(clubs);
     } catch (err) {
@@ -16,7 +16,8 @@ export async function getclubs(req, res) {
 // Get a single clubs by ID
 export async function getclubsById(req, res) {
     try {
-        const clubs = await Clubs.findById(req.params.clubId);
+        
+        const clubs = await Clubs.findById(req.params.clubsId);
         if (!clubs) {
             return res.status(404).json({ error: 'clubs not found' });
         }

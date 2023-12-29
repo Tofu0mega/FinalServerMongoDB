@@ -14,7 +14,7 @@ export async function getColleges(req, res) {
 // Get a single college by ID
 export async function getCollegeById(req, res) {
     try {
-        const college = await findById(req.params.collegeId);
+        const college = await College.findById(req.params.collegeId);
         if (!college) {
             return res.status(404).json({ error: 'College not found' });
         }

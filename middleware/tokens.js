@@ -6,8 +6,7 @@ export function verifyToken(req, res, next) {
   try {
     
     if (
-      req.url?.includes("auth") ||
-      req.url?.includes("user") 
+      req.url?.includes("auth")
       
     ) {
       
