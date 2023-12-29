@@ -14,4 +14,4 @@ export async function approveevent(approvedevent){
     );
     process.exit();
 }
-approveevent("Workshop On ML")
+approveevent("Testing Event")

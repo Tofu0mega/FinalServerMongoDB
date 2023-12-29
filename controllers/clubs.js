@@ -4,6 +4,7 @@ import Clubs from '../models/club.js';
 // Get all clubs
 export async function getclubs(req, res) {
     try {
+        console.log(req.user)
         const clubs = await Clubs.find();
         res.status(200).json(clubs);
     } catch (err) {

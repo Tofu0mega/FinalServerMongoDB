@@ -32,7 +32,8 @@ export async function createUser(req, res) {
 }
 
 export async function getUser(req, res) {
-    const userId = req.user;
+    const userId = req.user.id;
+    console.log(1,userId)
     let user;
     try {
         user = await User.findById(userId, "-password");
