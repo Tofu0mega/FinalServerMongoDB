@@ -5,6 +5,9 @@ const clubSchema = new mongoose.Schema({
     name: String,
     Acronym: String,
     Department: String,
+    location: String,
+    link:String,
+    description:String,
     College:String,
     Email: String,
     logoUrl: String,
@@ -12,6 +15,7 @@ const clubSchema = new mongoose.Schema({
     HODemail:String,
     associateduser:   
         {type:mongoose.Schema.Types.ObjectId,
+            ref: "Users",
         
         }
     
