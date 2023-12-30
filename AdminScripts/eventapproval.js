@@ -14,4 +14,4 @@ export async function approveevent(approvedevent){
     );
     process.exit();
 }
-approveevent("Testing Event")
+approveevent("KUCC ko event")

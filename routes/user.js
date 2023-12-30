@@ -9,6 +9,8 @@ router.get('/', user.getUsers);
 router.post('/', user.createUser);
 
 router.get('/user', verifyToken, user.getUser);
+router.get('/events', user.getEvents);
+
 router.get("/refresh", refreshToken, verifyToken, user.getUser);
 
 router.put('/:userId', user.updateUser);

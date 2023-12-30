@@ -1,4 +1,5 @@
 import User from '../models/user.js';
+import Event from '../models/event.js';
 
 export async function getUsers(req, res) {
     try {
@@ -12,6 +13,19 @@ export async function getUsers(req, res) {
         res.status(500).json({ error: 'Server error' });
     }
 }
+export async function getEvents(req, res) {
+    try {
+        console.log(req.user)
+        const userid=req.user.id
+       const userevent=await Event.find({organizers:userid,status:"Approved"})
+        res.status(200).json(userevent);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+
 
 export async function createUser(req, res) {
     try {
