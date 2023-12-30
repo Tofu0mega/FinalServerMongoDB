@@ -2,7 +2,7 @@ import Task from '../models/task.js';
 import User from '../models/user.js';
 
 export async function getToDo(req, res) {
-    const userId = req.id;
+    const userId = req.user.id;
     const todo = await Task.find({ user: userId });
     res.send(todo);
 }
@@ -10,7 +10,8 @@ export async function getToDo(req, res) {
 
 export async function saveToDo(req, res) {
     const { text } = req.body;
-    const userId = req.id;
+    const userId = req.user.id;
+    
 
     const task = new Task({
         text,

@@ -14,8 +14,9 @@ dotenv.config();
 // Get all events
 export async function getEvents(req, res) {
     try {
+        //Filteredevent keeps all active Events Only
         FilterEvent();
-        const events = await FilteredEvent.find();
+        const events = await Event.find({status:"Approved"});
         res.status(200).json(events);
     } catch (err) {
         console.error(err);

@@ -12,6 +12,7 @@ import auth from './routes/auth.js';
 import subscriber from './routes/subscriber.js';
 import task from './routes/task.js';
 import clubs from "./routes/clubs.js"
+import search from "./routes/search.js"
 const router=Router()
 
 router.use('/users', user);
@@ -20,6 +21,7 @@ router.use('/users', task);
 router.use('/colleges', college);
 router.use('/events', event);
 router.use('/clubs',clubs)
+router.use('/search',search)
 
 router.use('/organizers', organizer);
 router.use('/participants', participant);
