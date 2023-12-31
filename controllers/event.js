@@ -135,16 +135,16 @@ export async function createBooking(req, res) {
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
         }
-        const dublicatecheck= await Event.find({participants:req.user.id})
-        if(!dublicatecheck){
+        
         await Event.findByIdAndUpdate(req.body.eventId, {
             $push: { participants: req.user.id }
+        })
 
-        });
-    }
+       
         res.status(200).json({ message: 'Participants Added Successfully' });
+    }   
         
-    } catch (err) {
+     catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
     }
