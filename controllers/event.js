@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 //import Stripe from 'stripe';
 import Event from '../models/event.js';
+
 import FilteredEvent from '../models/filteredevents.js';
 import College from '../models/college.js';
 import { uploadImage } from '../config/cloudinary.js';
@@ -42,6 +43,12 @@ export async function getEventById(req, res) {
 export async function createEvent(req, res) {
  
     try {
+        const clubofuser= await Clubs.find({associateduser:req.user.id})
+        if(!clubofuser){
+            res.status(500).json({ error: 'Not a Associated User' });
+
+        }
+
         // Upload the banner image to cloudinary and get the URL
         const banner_link = await uploadImage(req.body.banner);
         
@@ -75,8 +82,8 @@ export async function createEvent(req, res) {
         res.status(201).json(event);
 
     } catch (err) {
-        console.error(err);
-        //res.status(500).json({ error: 'Server error' });
+        
+        res.status(500).json({ error: 'Server error' });
     }
 }
 
@@ -113,6 +120,30 @@ export async function deleteEvent(req, res) {
             return res.status(404).json({ error: 'Event not found' });
         }
         res.status(200).json({ message: 'Event deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+export async function createBooking(req, res) {
+    try {
+       
+        
+        const event = await Event.findById(req.body.eventId);
+        
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        const dublicatecheck= await Event.find({participants:req.user.id})
+        if(!dublicatecheck){
+        await Event.findByIdAndUpdate(req.body.eventId, {
+            $push: { participants: req.user.id }
+
+        });
+    }
+        res.status(200).json({ message: 'Participants Added Successfully' });
+        
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });

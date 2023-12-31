@@ -77,8 +77,8 @@ const eventSchema = new mongoose.Schema({
         ref: 'Resource'
     }],
     participants: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Participant'
+        type: mongoose.Schema.Types.ObjectId
+        
     }],
     organizers: [{
         type: mongoose.Schema.Types.ObjectId,
